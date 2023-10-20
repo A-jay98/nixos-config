@@ -38,6 +38,5 @@
       cleanup = "zap";
     };
     brews = [ "watch" ];
-    casks = [ "mactex" ];
   };
 }

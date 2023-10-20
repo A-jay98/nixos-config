@@ -2,18 +2,10 @@
   # Don't change this when you change package input. Leave it alone.
   home.stateVersion = "22.11";
   # specify my home-manager configs
-  #   home.packages = with pkgs; [
-  #     # ripgrep
-  #     # fd
-  #     # curl
-  #     # less
-  #     # pwnvim.packages."aarch64-darwin".default
-  #   ];
-  #   home.sessionVariables = {
-  #     PAGER = "less";
-  #     CLICLOLOR = 1;
-  #     EDITOR = "nvim";
-  #   };
+  home.packages = with pkgs; [
+    texlive.combined.scheme-full
+  ];
+
   programs.bat = {
     enable = true;
     config.theme = "TwoDark";
@@ -23,15 +15,17 @@
     enable = true;
     # to avoid running compinit twice, complition already ran.
     enableCompletion = false;
+    enableAutosuggestions = true;
     oh-my-zsh = {
       enable = true;
       plugins = [ "git" ];
       theme = "miloshadzic";
     };
     shellAliases = {
-      nixswitch = "darwin-rebuild switch --flake ~/Nix/system/.#";
+      nixswitch = "sudo darwin-rebuild switch --flake ~/Nix/system/.#";
       nixup = "pushd ~/Nix/system/.#; nix flake update; nixswitch; popd";
       jserver = "ssh aj@jamadi.me";
+      codenix = "code ~/Nix/";
     };
   };
 
