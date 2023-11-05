@@ -22,7 +22,7 @@ in
     inherit system;
     specialArgs = {
       # Pass Flake Variable
-      inherit inputs system unstable hyprland;
+      inherit inputs system unstable;
       vars = {
         hostName = "jnix";
         user = "aj";

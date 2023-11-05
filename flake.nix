@@ -2,7 +2,7 @@
   description = "Nix, NixOS and Nix Darwin System Flake Configuration";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05"; # Stable Nix Packages (Default)
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11"; # Stable Nix Packages (Default)
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable"; # Unstable Nix Packages
 
     home-manager = {
@@ -40,7 +40,7 @@
         # Nix Configurations
         import ./nix {
           inherit (nixpkgs) lib;
-          inherit inputs nixpkgs nixpkgs-unstable home-manager nixgl vars;
+          inherit inputs nixpkgs nixpkgs-unstable home-manager;
         }
       );
   };
