@@ -67,19 +67,6 @@ in
   };
 
   home-manager.users.${username} = {
-    nixpkgs.overlays = [
-      (final: prev: {
-        texlive.combined.scheme-full = prev.texlive.combined.scheme-full.overrideAttrs
-          (old: {
-            src = prev.fetchFromGitHub {
-              owner = "mtoyoda";
-              repo = "sl";
-              rev = "923e7d7ebc5c1f009755bdeb789ac25658ccce03";
-              hash = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-            };
-          });
-      })
-    ];
 
     home = {
       # User Level
@@ -113,7 +100,6 @@ in
           # Spaceship
           source ${pkgs.spaceship-prompt}/share/zsh/site-functions/prompt_spaceship_setup
           autoload -U promptinit; promptinit
-          pfetch
         ''; # Theming
 
         shellAliases = {

@@ -20,13 +20,13 @@
   };
 
   outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, home-manager, darwin, ... }: {
-    # nixosConfigurations = (
-    #   # NixOS Configurations
-    #   import ./hosts {
-    #     inherit (nixpkgs) lib;
-    #     inherit inputs nixpkgs nixpkgs-unstable home-manager nur doom-emacs hyprland plasma-manager vars; # Inherit inputs
-    #   }
-    # );
+    nixosConfigurations = (
+      # NixOS Configurations
+      import ./hosts {
+        inherit (nixpkgs) lib;
+        inherit inputs nixpkgs nixpkgs-unstable home-manager; # Inherit inputs
+      }
+    );
 
     darwinConfigurations = (
       # Darwin Configurations
@@ -36,13 +36,12 @@
       }
     );
 
-    #   homeConfigurations = (
-    #     # Nix Configurations
-    #     import ./nix {
-    #       inherit (nixpkgs) lib;
-    #       inherit inputs nixpkgs nixpkgs-unstable home-manager nixgl vars;
-    #     }
-    #   );
-    # };
+      homeConfigurations = (
+        # Nix Configurations
+        import ./nix {
+          inherit (nixpkgs) lib;
+          inherit inputs nixpkgs nixpkgs-unstable home-manager nixgl vars;
+        }
+      );
   };
 }
