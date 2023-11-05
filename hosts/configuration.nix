@@ -64,17 +64,6 @@
   };
 
 
-  services = {
-    openssh = {
-      # SSH
-      enable = true;
-      allowSFTP = true; # SFTP
-      extraConfig = ''
-        HostKeyAlgorithms +ssh-rsa
-      '';
-    };
-  };
-
   nix = {
     # Nix Package Manager Settings
     settings = {
