@@ -2,13 +2,19 @@
   description = "Nix, NixOS and Nix Darwin System Flake Configuration";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11"; # Stable Nix Packages (Default)
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05"; # Stable Nix Packages (Default)
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable"; # Unstable Nix Packages
 
-    home-manager = {
+    home-manager-unstable = {
       # User Environment Manager
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
+    home-manager = {
+      # User Environment Manager
+      url = "github:nix-community/home-manager/release-23.05";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     darwin = {
@@ -19,7 +25,7 @@
 
   };
 
-  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, home-manager, darwin, ... }: {
+  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, home-manager, home-manager-unstable, darwin, ... }: {
     nixosConfigurations = (
       # NixOS Configurations
       import ./hosts {
@@ -31,17 +37,17 @@
     darwinConfigurations = (
       # Darwin Configurations
       import ./darwin {
-        inherit inputs nixpkgs nixpkgs-unstable home-manager darwin;
+        inherit inputs nixpkgs nixpkgs-unstable home-manager-unstable darwin;
         inherit (nixpkgs) lib;
       }
     );
 
-      homeConfigurations = (
-        # Nix Configurations
-        import ./nix {
-          inherit (nixpkgs) lib;
-          inherit inputs nixpkgs nixpkgs-unstable home-manager;
-        }
-      );
+    homeConfigurations = (
+      # Nix Configurations
+      import ./nix {
+        inherit (nixpkgs) lib;
+        inherit inputs nixpkgs nixpkgs-unstable home-manager;
+      }
+    );
   };
 }
