@@ -1,7 +1,7 @@
 { config, lib, pkgs, unstable, inputs, vars, ... }:
 
 {
-  # imports = [];
+  imports = (import ../modules/shells);
 
   users.users.${vars.user} = {
     # System User
