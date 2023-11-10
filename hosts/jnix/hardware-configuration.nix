@@ -29,7 +29,7 @@
     interfaces = {
       ens18.ipv4.addresses = [{
         address = "10.0.0.206";
-        prefixLength = 24;
+        prefixLength = 16;
       }];
     };
     defaultGateway = "10.0.0.10";

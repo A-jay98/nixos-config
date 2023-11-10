@@ -10,8 +10,7 @@
     # Boot Options
     loader = {
       grub = {
-        enable = true;
-        device = ["/dev/device/by-label/nixos"];
+        device = "/dev/sda";
         configurationLimit = 5;
       };
       timeout = 1;

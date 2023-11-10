@@ -8,11 +8,9 @@
   boot = {
     # Boot Options
     loader = {
-      grub = {
+      systemd-boot = {
         enable = true;
-        efiSupport = true;
-        device = "nodev";
-        configurationLimit = 5;
+        configurationLimit=5;
       };
       timeout = 1;
       efi = {
