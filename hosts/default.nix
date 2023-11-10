@@ -43,5 +43,30 @@ in
   };
 
 
+  heracles = lib.nixosSystem {
+    # Server Profile
+    inherit system;
+    specialArgs = {
+      # Pass Flake Variable
+      inherit inputs system unstable;
+      vars = {
+        hostName = "heracles";
+        user = "aj";
+      };
+    };
+    modules = [
+      # Modules Used
+      ./heracles
+      ./configuration.nix
+
+      home-manager.nixosModules.home-manager
+      {
+        # Home-Manager Module
+        home-manager.useGlobalPkgs = true;
+        home-manager.useUserPackages = true;
+      }
+    ];
+  };
+
 
 }

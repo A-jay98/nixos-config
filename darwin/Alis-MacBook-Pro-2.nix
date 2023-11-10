@@ -104,7 +104,7 @@ in
 
         shellAliases = {
           nixswitch = "darwin-rebuild switch --flake ~/Nix/.#";
-          nixup = "pushd ~/Nix/.#; nix flake update; nixswitch; popd";
+          nixup = "pushd ~/Nix/; nix flake update; nixswitch; popd";
           jserver = "ssh aj@jamadi.me";
           codenix = "code ~/Nix/";
         };

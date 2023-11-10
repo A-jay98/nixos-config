@@ -3,6 +3,7 @@
 {
   imports = [
     ./hardware-configuration.nix
+    ../../modules/services/nginx.nix
   ];
 
   boot = {
@@ -10,15 +11,10 @@
     loader = {
       grub = {
         enable = true;
-        efiSupport = true;
-        device = "nodev";
+        device = ["/dev/device/by-label/nixos"];
         configurationLimit = 5;
       };
       timeout = 1;
-      efi = {
-        canTouchEfiVariables = true;
-        efiSysMountPoint = "/boot";
-      };
     };
   };
 
