@@ -1,4 +1,4 @@
-{ lib, inputs, nixpkgs, nixpkgs-unstable, home-manager, ... }:
+{ lib, inputs, nixpkgs, nixpkgs-unstable, home-manager, vscode-server,... }:
 
 let
   system = "x86_64-linux"; # System Architecture
@@ -38,6 +38,11 @@ in
         # Home-Manager Module
         home-manager.useGlobalPkgs = true;
         home-manager.useUserPackages = true;
+      }
+
+      vscode-server.nixosModules.default
+      {
+        services.vscode-server.enable = true;
       }
     ];
   };

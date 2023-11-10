@@ -23,14 +23,22 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
+
+    # VScode server
+    vscode-server = {
+      url = "github:nix-community/nixos-vscode-server";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+
   };
 
-  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, home-manager, home-manager-unstable, darwin, ... }: {
+  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, home-manager, home-manager-unstable, darwin, vscode-server, ... }: {
     nixosConfigurations = (
       # NixOS Configurations
       import ./hosts {
         inherit (nixpkgs) lib;
-        inherit inputs nixpkgs nixpkgs-unstable home-manager; # Inherit inputs
+        inherit inputs nixpkgs nixpkgs-unstable home-manager vscode-server; # Inherit inputs
       }
     );
 
