@@ -1,4 +1,4 @@
-{ config, pkgs, vars, ... }:
+{ config, pkgs, vars, inputs, ... }:
 
 {
   imports = [
@@ -21,12 +21,20 @@
     };
   };
 
-  environment = {
-    systemPackages = with pkgs; [
-      # System Wide Packages
-      texlive.combined.scheme-full
-    ];
-  };
+
+  environment =
+    let
+      oldpkgs = import inputs.nixpkgs_ltex-ls { system = "x86_64-linux"; };
+    in
+    {
+      systemPackages = with pkgs; [
+        # System Wide Packages
+        texlive.combined.scheme-full
+      ] ++
+      [
+        oldpkgs.ltex-ls
+      ];
+    };
   networking.firewall.enable = false;
 
 
@@ -54,9 +62,21 @@
   # all other users settings
   users.users."shiva" = {
     isNormalUser = true;
-    openssh.authorizedKeys.keyFiles = [
-      "/home/shiva/.ssh/authorizedKeys"
+    # TODO: This is nice. Heracles can server these files.
+    # openssh.authorizedKeys.keys =
+    #   let
+    #     authorizedKeys = pkgs.fetchurl {
+    #       url = "https://secrets.jamadi.me/ssh/shiva/jnix.pub";
+    #       sha256 = "1kril7clfay225xdfhpp770gk60g5rp66nr6hzd5gpxvkynyxlrf";
+    #     };
+    #   in
+    #   pkgs.lib.splitString "\n" (builtins.readFile authorizedKeys);
+    openssh.authorizedKeys.keys = [
+      "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDibAV8VYRGzs2Dy+iTVQlJssAX2J1HyizPzK+Twoe/T/l0dB9+GhVt00R6qm5SPU9CmmbTQePDZ+Bjxx1Gw1sTVPV7gBbPUa4yg4dKGIobdb+rY7L7RPU274K6AF9Hpp6Yn5M3UEhnPi9uUphEl+0YC+bsbB54A1ozoSmFbtFt7z7YwCTfkLU6yu9TiWw1xZI/HL2rwsBoTgPWC9Ld0FH9oycu0aN6QvfRo4BkquCnV2MJCHAZHEAJVkGK79FBo3ylHJz/rXFRrQ+v3PdHnGUpw1NAvki6DajX6hRa8UE4v4xuOvspSpm6+HIxOOXlGd8579Vy7DPKw6SjUkY5e8XZ shiva"
     ];
+
+
+    shell = pkgs.zsh;
   };
 
 }

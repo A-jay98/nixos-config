@@ -29,7 +29,7 @@
       url = "github:nix-community/nixos-vscode-server";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
+    nixpkgs_ltex-ls.url = "github:NixOS/nixpkgs/d8c8f21bdf087cf2c1a259d8925bfd3e85c3339c";
 
   };
 
