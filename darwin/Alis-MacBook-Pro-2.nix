@@ -106,6 +106,7 @@ in
           nixswitch = "darwin-rebuild switch --flake ~/Nix/.#";
           nixup = "pushd ~/Nix/; nix flake update; nixswitch; popd";
           jserver = "ssh aj@jamadi.me";
+          morpheus = "ssh nix.morpheus.jamadi.me";
           codenix = "code ~/Nix/";
         };
       };
