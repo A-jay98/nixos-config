@@ -30,6 +30,7 @@
       systemPackages = with pkgs; [
         # System Wide Packages
         texlive.combined.scheme-full
+        cudatoolkit
       ] ++
       [
         oldpkgs.ltex-ls

@@ -52,6 +52,7 @@
       nix-tree # Browse Nix Store
       ranger # File Manager
       tldr # Helper
+      tmux
       wget # Retriever
 
       # Other Packages Found @
