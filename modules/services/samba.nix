@@ -30,8 +30,8 @@
         "guest ok" = "no";
         "create mask" = "0644";
         "directory mask" = "0755";
-        "force user" = "aj";
-        "force group" = "users";
+        # "force user" = "aj";
+        # "force group" = "users";
       };
     };
   };
