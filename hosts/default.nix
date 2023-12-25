@@ -87,7 +87,6 @@ in
     };
     modules = [
       # Modules Used
-      inputs.authentik-nix.nixosModules.default
       ./athena
     ];
   };
