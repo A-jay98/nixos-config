@@ -53,7 +53,7 @@
     };
     systemPackages = with pkgs; [
       # System Wide Packages
-
+      docker-compose
     ];
   };
 
@@ -62,6 +62,16 @@
 
 
   virtualisation.docker.enable = true;
-  
+
+  systemd.services.my-docker-compose = {
+    path = [ pkgs.docker-compose ];
+    script = ''
+      docker-compose -f ${/authtentik/docker-compose.yml}
+    '';
+    wantedBy = [ "multi-user.target" ];
+    # If you use docker
+    after = ["docker.service" "docker.socket"];
+  };
+
 
 }
