@@ -29,8 +29,13 @@
       url = "github:nix-community/nixos-vscode-server";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     nixpkgs_ltex-ls.url = "github:NixOS/nixpkgs/d8c8f21bdf087cf2c1a259d8925bfd3e85c3339c";
 
+    #authentik used by Athena 
+    authentik-nix = {
+    url = "github:nix-community/authentik-nix";
+    };
   };
 
   outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, home-manager, home-manager-unstable, darwin, vscode-server, ... }: {

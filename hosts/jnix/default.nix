@@ -31,6 +31,7 @@
         # System Wide Packages
         texlive.combined.scheme-full
         pciutils
+        nixpkgs-fmt
       ] ++
       [
         oldpkgs.ltex-ls
@@ -84,5 +85,8 @@
 
     shell = pkgs.zsh;
   };
+
+  virtualisation.docker.enable = true;
+  virtualisation.docker.enableNvidia = true;
 
 }

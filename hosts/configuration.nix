@@ -6,7 +6,7 @@
   users.users.${vars.user} = {
     # System User
     isNormalUser = true;
-    extraGroups = [ "wheel" ];
+    extraGroups = [ "wheel" "docker"];
   };
 
   time.timeZone = "America/Edmonto"; # Time zone and Internationalisation

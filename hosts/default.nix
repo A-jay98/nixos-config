@@ -1,4 +1,4 @@
-{ lib, inputs, nixpkgs, nixpkgs-unstable, home-manager, vscode-server,... }:
+{ lib, inputs, nixpkgs, nixpkgs-unstable, home-manager, vscode-server, ... }:
 
 let
   system = "x86_64-linux"; # System Architecture
@@ -72,6 +72,26 @@ in
       }
     ];
   };
+
+
+  athena = lib.nixosSystem {
+    # Server Profile
+    inherit system;
+    specialArgs = {
+      # Pass Flake Variable
+      inherit inputs system unstable;
+      vars = {
+        hostName = "athena";
+        user = "aj";
+      };
+    };
+    modules = [
+      # Modules Used
+      inputs.authentik-nix.nixosModules.default
+      ./athena
+    ];
+  };
+
 
 
 }
