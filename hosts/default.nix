@@ -87,7 +87,14 @@ in
     };
     modules = [
       # Modules Used
+      {
+        # Home-Manager Module
+        home-manager.useGlobalPkgs = true;
+        home-manager.useUserPackages = true;
+      }
       ./athena
+      ./configuration.nix
+      home-manager.nixosModules.home-manager
     ];
   };
 

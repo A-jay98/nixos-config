@@ -1,4 +1,4 @@
-{ config, pkgs, vars, inputs, ... }:
+{ config, pkgs, vars, inputs, lib, ... }:
 
 {
   imports = [
@@ -17,33 +17,7 @@
   };
 
 
-  users.users.${vars.user} = {
-    # System User
-    isNormalUser = true;
-    extraGroups = [ "wheel" ];
-  };
 
-  nix = {
-    # Nix Package Manager Settings
-    settings = {
-      auto-optimise-store = true;
-    };
-    gc = {
-      # Garbage Collection
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 2d";
-    };
-    package = pkgs.nixFlakes; # Enable Flakes
-    registry.nixpkgs.flake = inputs.nixpkgs;
-    settings.experimental-features = "nix-command flakes";
-  };
-  nixpkgs.config.allowUnfree = true; # Allow Proprietary Software.
-
-  system = {
-    # NixOS Settings
-    stateVersion = "23.05";
-  };
 
 
 
@@ -66,11 +40,35 @@
   systemd.services.my-docker-compose = {
     path = [ pkgs.docker-compose ];
     script = ''
-      docker-compose -f ${/authtentik/docker-compose.yml}
+      docker-compose -f ${/authentik/docker-compose.yml}
     '';
     wantedBy = [ "multi-user.target" ];
     # If you use docker
-    after = ["docker.service" "docker.socket"];
+    after = [ "docker.service" "docker.socket" ];
+  };
+
+
+  services.openssh = {
+    # SSH
+    enable = true;
+    ports = [ 60 ];
+    settings = {
+      PasswordAuthentication = false;
+      KbdInteractiveAuthentication = false;
+      PermitRootLogin = "no";
+    };
+    allowSFTP = true; # SFTP
+    extraConfig = ''
+      HostKeyAlgorithms +ssh-rsa
+    '';
+  };
+
+  # custom default user conf
+  users.users.${vars.user} = {
+    openssh.authorizedKeys.keys = [
+      "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDZsVHhI2OjDFDl3t1ffvlOTZKZeoxoTH1NEcuQcV6uWVyBiWhsL5eJoGXC4VETMkxWwZtdMkDeFtFp/LVR20BoKAYgN9ge46DP+wStZbuoASzEu0cIupKnPxk2YLKr6VFJwE/jfeYY/MEm0C3givMfBxCZIGexWtvX9lm2+BO6QHuMO/bMKdKhIpGa4L6BYFj97EvIYzDSrk41rzq+p8mIOq6ESltmYDVlCjW6giJyX9bngSz+ZcKqEkU1nr30lDnyIXRSNFW2FJAkCm72dxWLfgx9hzyTsSiiuBz5b1ekVXFIYu7JiErOAlTsFA+P8CIx/nQ5Xnv5vNLpT5Z0W1rD Alis-MacBook-Pro"
+    ];
+    homeMode = "770";
   };
 
 
