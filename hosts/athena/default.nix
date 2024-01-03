@@ -37,10 +37,10 @@
 
   virtualisation.docker.enable = true;
 
-  systemd.services.my-docker-compose = {
+  systemd.services.authentik = {
     path = [ pkgs.docker-compose ];
     script = ''
-      docker-compose -f ${/authentik/docker-compose.yml}
+      docker-compose -f ${/authentik/docker-compose.yml} up -d
     '';
     wantedBy = [ "multi-user.target" ];
     # If you use docker
