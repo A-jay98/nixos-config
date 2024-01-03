@@ -13,6 +13,11 @@
       device = "/dev/disk/by-label/nixos";
       fsType = "ext4";
     };
+  fileSystems."/storage" =
+    {
+      device = "/dev/disk/by-label/raidStorage";
+      fsType = "ext4";
+    };
 
   fileSystems."/boot" =
     {

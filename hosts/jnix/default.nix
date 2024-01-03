@@ -89,15 +89,4 @@
   virtualisation.docker.enable = true;
   virtualisation.docker.enableNvidia = true;
 
-  systemd.services.authentik = {
-    path = [ pkgs.docker-compose ];
-    script = ''
-      docker-compose -f ${/authentik/docker-compose.yml}
-    '';
-    wantedBy = [ "multi-user.target" ];
-    # If you use docker
-    after = ["docker.service" "docker.socket"];
-  };
-
-
 }
